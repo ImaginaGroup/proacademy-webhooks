@@ -18,8 +18,13 @@
 |
 */
 
+import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
+Route.get('/', async ({ response }) => {
+  const report = await HealthCheck.getReport()
+
+  const data = { report: report }
+  return report.healthy ? response.ok(data) : response.badRequest(report)
 })
+Route.post('/syncMail', 'MailController.store').as('syncMail')
