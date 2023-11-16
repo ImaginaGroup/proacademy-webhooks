@@ -25,14 +25,14 @@ export default class MailController {
 
     console.log('From:' + msgFrom)
     if (msgFrom && msgFrom.includes(Env.get('PRODUCTION_MAIL'))) {
-      console.log('sending to production ' + body)
+      console.log('sending to production ' + msgFrom)
       await axios.post(Env.get('PRODUCTION_WEBHOOK') + `/webhooks/syncMail`, body, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
     } else if (msgFrom && msgFrom.includes(Env.get('BETA_MAIL'))) {
-      console.log('sending to beta ' + body)
+      console.log('sending to beta ' + msgFrom)
       await axios.post(Env.get('BETA_WEBHOOK') + `/webhooks/syncMail`, body, {
         headers: {
           'Content-Type': 'application/json',
