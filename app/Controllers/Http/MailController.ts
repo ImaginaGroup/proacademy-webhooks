@@ -24,14 +24,14 @@ export default class MailController {
     const msgFrom: string = find(body, 'msg_from')[0]
 
     console.log(msgFrom, Env.get('PRODUCTION_MAIL'))
-    if (msgFrom.includes(Env.get('PRODUCTION_MAIL'))) {
+    if (msgFrom && msgFrom.includes(Env.get('PRODUCTION_MAIL'))) {
       console.log('sending to production ' + body)
       await axios.post(Env.get('PRODUCTION_WEBHOOK') + `/webhooks/syncMail`, body, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-    } else if (msgFrom.includes(Env.get('BETA_MAIL'))) {
+    } else if (msgFrom && msgFrom.includes(Env.get('BETA_MAIL'))) {
       console.log('sending to beta ' + body)
       await axios.post(Env.get('BETA_WEBHOOK') + `/webhooks/syncMail`, body, {
         headers: {
