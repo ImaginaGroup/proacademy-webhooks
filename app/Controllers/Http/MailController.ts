@@ -23,7 +23,7 @@ export default class MailController {
     */
     const msgFrom: string = find(body, 'msg_from')[0]
 
-    console.log(msgFrom)
+    console.log('From:' + msgFrom)
     if (msgFrom && msgFrom.includes(Env.get('PRODUCTION_MAIL'))) {
       console.log('sending to production ' + body)
       await axios.post(Env.get('PRODUCTION_WEBHOOK') + `/webhooks/syncMail`, body, {
