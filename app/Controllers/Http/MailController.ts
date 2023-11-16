@@ -21,7 +21,7 @@ export default class MailController {
     const transmissionId = find(body, 'transmission_id')[0]
     const type = find(body, 'type')[0]
     */
-    const msgFrom: string = find(body, 'msg_from')[0]
+    const msgFrom: string = find(body, 'friendly_from')[0]
 
     console.log('From:' + msgFrom)
     if (msgFrom && msgFrom.includes(Env.get('PRODUCTION_MAIL'))) {
